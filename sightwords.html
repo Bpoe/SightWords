@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fry’s 1000 Sight Words</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    text-align: center;
+    padding: 40px;
+  }
+  h1 {
+    font-size: 28px;
+    color: #222;
+  }
+  #word {
+    font-size: 64px;
+    font-weight: bold;
+    margin: 100px 0;
+    color: #333;
+  }
+  button {
+    background: #0078d4;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    margin: 10px;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #005ea6;
+  }
+</style>
+</head>
+<body>
+
+<h1>Fry’s 1000 Sight Words</h1>
+<div id="word">Loading...</div>
+
+<div>
+  <button id="prevBtn">⬅️ Previous</button>
+  <button id="nextBtn">Next ➡️</button>
+</div>
+
+<script>
+// --- Fry's 1000 Sight Words ---
+const fryWords = [
+"the","of","and","a","to","in","is","you","that","it","he","was","for","on","are","as","with","his","they","I",
+"at","be","this","have","from","or","one","had","by","word","but","not","what","all","were","we","when","your","can","said",
+"there","use","an","each","which","she","do","how","their","if","will","up","other","about","out","many","then","them","these","so",
+"some","her","would","make","like","him","into","time","has","look","two","more","write","go","see","number","no","way","could","people",
+"my","than","first","water","been","call","who","oil","its","now","find","long","down","day","did","get","come","made","may","part",
+"over","new","sound","take","only","little","work","know","place","year","live","me","back","give","most","very","after","thing","our","just",
+"name","good","sentence","man","think","say","great","where","help","through","much","before","line","right","too","means","old","any","same",
+"tell","boy","follow","came","want","show","also","around","form","three","small","set","put","end","does","another","well","large","must","big",
+"even","such","because","turn","here","why","ask","went","men","read","need","land","different","home","us","move","try","kind","hand","picture",
+"again","change","off","play","spell","air","away","animal","house","point","page","letter","mother","answer","found","study","still","learn","should","America",
+"world","high","every","near","add","food","between","own","below","country","plant","last","school","father","keep","tree","never","start","city","earth",
+"eye","light","thought","head","under","story","saw","left","don’t","few","while","along","might","close","something","seem","next","hard","open","example",
+"begin","life","always","those","both","paper","together","got","group","often","run","important","until","children","side","feet","car","mile","night","walk",
+"white","sea","began","grow","took","river","four","carry","state","once","book","hear","stop","without","second","later","miss","idea","enough","eat",
+"face","watch","far","Indian","real","almost","let","above","girl","sometimes","mountain","cut","young","talk","soon","list","song","being","leave","family",
+"it’s","body","music","color","stand","sun","questions","fish","area","mark","dog","horse","birds","problem","complete","room","knew","since","ever","piece",
+"told","usually","didn’t","friends","easy","heard","order","red","door","sure","become","top","ship","across","today","during","short","better","best","however",
+"low","hours","black","products","happened","whole","measure","remember","early","waves","reached","listen","wind","rock","space","covered","fast","several","hold","himself",
+"toward","five","step","morning","passed","vowel","true","hundred","against","pattern","numeral","table","north","slowly","money","map","farm","pulled","draw","voice",
+"seen","cold","cried","plan","notice","south","sing","war","ground","fall","king","town","I’ll","unit","figure","certain","field","travel","wood","fire",
+"upon","done","English","road","half","ten","fly","gave","box","finally","wait","correct","oh","quickly","person","became","shown","minutes","strong","verb",
+"stars","front","feel","fact","inches","street","decided","contain","course","surface","produce","building","ocean","class","note","nothing","rest","carefully","scientists","inside",
+"wheels","stay","green","known","island","week","less","machine","base","ago","stood","plane","system","behind","ran","round","boat","game","force","brought",
+"understand","warm","common","bring","explain","dry","though","language","shape","deep","thousands","yes","clear","equation","yet","government","filled","heat","full","hot",
+"check","object","am","rule","among","noun","power","cannot","able","six","size","dark","ball","material","special","heavy","fine","pair","circle","include",
+"built","can’t","matter","square","syllables","perhaps","bill","felt","suddenly","test","direction","center","farmers","ready","anything","divided","general","energy","subject","Europe",
+"moon","region","return","believe","dance","members","picked","simple","cells","paint","mind","love","cause","rain","exercise","eggs","train","blue","wish","drop",
+"developed","window","difference","distance","heart","site","sum","summer","wall","forest","probably","legs","sat","main","winter","wide","written","length","reason","kept",
+"interest","arms","brother","race","present","beautiful","store","job","edge","past","sign","record","finished","discovered","wild","happy","beside","gone","sky","grass",
+"million","west","lay","weather","root","instruments","meet","third","months","paragraph","raised","represent","soft","whether","clothes","flowers","shall","teacher","held","describe",
+"drive","cross","speak","solve","appear","metal","son","either","ice","sleep","village","factors","result","jumped","snow","ride","care","floor","hill","pushed",
+"baby","buy","century","outside","everything","tall","already","instead","phrase","soil","bed","copy","free","hope","spring","case","laughed","nation","quite","type",
+"themselves","temperature","bright","lead","everyone","method","section","lake","iron","within","dictionary","hair","age","amount","scale","pounds","although","per","broken","moment",
+"tiny","possible","gold","milk","quiet","natural","lot","stone","act","build","middle","speed","count","consonant","someone","sail","rolled","bear","wonder","smiled",
+"angle","fraction","Africa","killed","melody","bottom","trip","hole","poor","let’s","fight","surprise","French","died","beat","exactly","remain","dress","cat","couldn’t",
+"fingers","row","least","catch","climbed","wrote","shouted","continued","itself","else","plain","gas","England","burning","design","joined","foot","law","ears","glass",
+"you’re","grow","skin","valley","cent","key","president","brown","trouble","cool","cloud","lost","sent","symbols","wear","bad","save","experiment","engine","alone",
+"drawing","east","choose","single","touch","information","express","mouth","yard","equal","decimal","yourself","control","practice","report","straight","rise","statement","stick","party",
+"seeds","suppose","woman","coast","bank","period","wire","pay","clean","visit","bit","whose","received","garden","please","strange","caught","fell","team","God",
+"captain","direct","ring","serve","child","desert","increase","history","cost","maybe","business","separate","break","uncle","hunting","flow","lady","students","human","art",
+"feeling","supply","corner","electric","insects","crops","tone","hit","sand","doctor","provide","thus","won’t","cook","bones","mall","board","modern","compound","mine",
+"wasn’t","fit","addition","belong","safe","soldiers","guess","silent","trade","rather","compare","crowd","poem","enjoy","elements","indicate","located","smell","captured","dealing",
+"bread","detail","burn","costs","level","neck","region","decimal","oxygen","sugar","death","pretty","skill","women","season","solution","magnet","silver","thank","branch",
+"match","suffix","especially","fig","afraid","huge","sister","steel","discuss","forward","similar","guide","experience","score","apple","bought","led","pitch","coat","mass",
+"card","band","rope","slip","win","dream","evening","condition","feed","tool","total","basic","smell","valley","nor","double","seat","arrive","master","track",
+"parent","shore","division","sheet","substance","favor","connect","post","spend","chord","fat","glad","original","share","station","dad","bread","charge","proper","bar",
+"offer","segment","slave","duck","instant","market","degree","populate","chick","dear","enemy","reply","drink","occur","support","speech","nature","range","steam","motion",
+"path","liquid","log","meant","quotient","teeth","shells","neck","oxygen","sugar","death","pretty","skill","women","season","solution","magnet","silver","thank","branch",
+"match","suffix","especially","fig","afraid","huge","sister","steel","discuss","forward","similar","guide","experience","score","apple","bought","led","pitch","coat","mass"
+];
+
+// --- Shuffle ---
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+shuffle(fryWords);
+let currentIndex = 0;
+
+const wordEl = document.getElementById('word');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function showWord() {
+  wordEl.textContent = fryWords[currentIndex];
+}
+
+function prevWord() {
+  currentIndex = (currentIndex - 1 + fryWords.length) % fryWords.length;
+  showWord();
+}
+
+function nextWord() {
+  currentIndex = (currentIndex + 1) % fryWords.length;
+  showWord();
+}
+
+prevBtn.addEventListener('click', prevWord);
+nextBtn.addEventListener('click', nextWord);
+
+// --- Arrow key support ---
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') nextWord();
+  if (e.key === 'ArrowLeft') prevWord();
+});
+
+// Display first word
+showWord();
+</script>
+</body>
+</html>
