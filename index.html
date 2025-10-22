@@ -47,8 +47,10 @@
 
 <label for="wordList">Select Word List:</label>
 <select id="wordList">
-  <option value="500" selected>Fry’s 500 Words</option>
-  <option value="1000">Fry’s 1000 Words</option>
+  <option value="100" selected>Fry’s First 100 Words</option>
+  <option value="200">Fry’s First 200 Words</option>
+  <option value="500">Fry’s First 500 Words</option>
+  <option value="1000">Fry’s First 1000 Words</option>
 </select>
 
 <div id="word">Loading...</div>
@@ -59,8 +61,9 @@
 </div>
 
 <script>
-// --- Fry's 500 Sight Words ---
-const fry500 = [
+// --- Fry's Word Lists ---
+
+const fry100 = [
 "the","of","and","a","to","in","is","you","that","it",
 "he","was","for","on","are","as","with","his","they","I",
 "at","be","this","have","from","or","one","had","by","word",
@@ -69,39 +72,45 @@ const fry500 = [
 "will","up","other","about","out","many","then","them","these","so",
 "some","her","would","make","like","him","into","time","has","look",
 "two","more","write","go","see","number","no","way","could","people",
-"my","than","first","water","been","call","who","oil","its","now",
-"find","long","down","day","did","get","come","made","may","part",
-"over","new","sound","take","only","little","work","know","place","year",
-"live","me","back","give","most","very","after","thing","our","just",
-"name","good","sentence","man","think","say","great","where","help","through",
-"much","before","line","right","too","means","old","any","same","tell",
-"boy","follow","came","want","show","also","around","form","three","small",
-"set","put","end","does","another","well","large","must","big","even",
-"such","because","turn","here","why","ask","went","men","read","need",
-"land","different","home","us","move","try","kind","hand","picture","again",
-"change","off","play","spell","air","away","animal","house","point","page",
-"letter","mother","answer","found","study","still","learn","should","America","world",
-"high","every","near","add","food","between","own","below","country","plant",
-"last","school","father","keep","tree","never","start","city","earth","eye",
-"light","thought","head","under","story","saw","left","don’t","few","while",
-"along","might","close","something","seem","next","hard","open","example","begin",
-"life","always","those","both","paper","together","got","group","often","run",
-"important","until","children","side","feet","car","mile","night","walk","white",
-"sea","began","grow","took","river","four","carry","state","once","book",
-"hear","stop","without","second","later","miss","idea","enough","eat","face",
-"watch","far","Indian","real","almost","let","above","girl","sometimes","mountain",
-"cut","young","talk","soon","list","song","being","leave","family","it’s",
-"body","music","color","stand","sun","questions","fish","area","mark","dog",
-"horse","birds","problem","complete","room","knew","since","ever","piece","told",
-"usually","didn’t","friends","easy","heard","order","red","door","sure","become",
-"top","ship","across","today","during","short","better","best","however","low",
-"hours","black","products","happened","whole","measure","remember","early","waves","reached"
+"my","than","first","water","been","call","who","oil","its","now"
 ];
 
-// --- Fry's 1000 Sight Words (includes the 500 above) ---
+const fry200 = [
+  ...fry100,
+  "find","long","down","day","did","get","come","made","may","part",
+  "over","new","sound","take","only","little","work","know","place","year",
+  "live","me","back","give","most","very","after","thing","our","just",
+  "name","good","sentence","man","think","say","great","where","help","through",
+  "much","before","line","right","too","means","old","any","same","tell",
+  "boy","follow","came","want","show","also","around","form","three","small",
+  "set","put","end","does","another","well","large","must","big","even",
+  "such","because","turn","here","why","ask","went","men","read","need",
+  "land","different","home","us","move","try","kind","hand","picture","again",
+  "change","off","play","spell","air","away","animal","house","point","page"
+];
+
+const fry500 = [
+  ...fry200,
+  "letter","mother","answer","found","study","still","learn","should","America","world",
+  "high","every","near","add","food","between","own","below","country","plant",
+  "last","school","father","keep","tree","never","start","city","earth","eye",
+  "light","thought","head","under","story","saw","left","don’t","few","while",
+  "along","might","close","something","seem","next","hard","open","example","begin",
+  "life","always","those","both","paper","together","got","group","often","run",
+  "important","until","children","side","feet","car","mile","night","walk","white",
+  "sea","began","grow","took","river","four","carry","state","once","book",
+  "hear","stop","without","second","later","miss","idea","enough","eat","face",
+  "watch","far","Indian","real","almost","let","above","girl","sometimes","mountain",
+  "cut","young","talk","soon","list","song","being","leave","family","it’s",
+  "body","music","color","stand","sun","questions","fish","area","mark","dog",
+  "horse","birds","problem","complete","room","knew","since","ever","piece","told",
+  "usually","didn’t","friends","easy","heard","order","red","door","sure","become",
+  "top","ship","across","today","during","short","better","best","however","low",
+  "hours","black","products","happened","whole","measure","remember","early","waves","reached"
+];
+
 const fry1000 = [
   ...fry500,
-  // (second 500 words)
   "listen","wind","rock","space","covered","fast","several","hold","himself","toward",
   "five","step","morning","passed","vowel","true","hundred","against","pattern","numeral",
   "table","north","slowly","money","map","farm","pulled","draw","voice","seen",
@@ -169,7 +178,12 @@ function nextWord() {
 }
 
 function loadList(listType) {
-  words = listType === "500" ? [...fry500] : [...fry1000];
+  switch(listType) {
+    case "100": words = [...fry100]; break;
+    case "200": words = [...fry200]; break;
+    case "500": words = [...fry500]; break;
+    case "1000": words = [...fry1000]; break;
+  }
   shuffle(words);
   currentIndex = 0;
   showWord();
@@ -179,7 +193,6 @@ function loadList(listType) {
 prevBtn.addEventListener('click', prevWord);
 nextBtn.addEventListener('click', nextWord);
 wordListSelect.addEventListener('change', (e) => loadList(e.target.value));
-
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') nextWord();
   if (e.key === 'ArrowLeft') prevWord();
